@@ -9,6 +9,11 @@ hackrf_tcp source was coded in a rush just as a PoC and uploaded to github for t
 
 Also note that this has only been tested to be working with Linux.
 
+# Known Issues
+
+  * Tested only with Linux
+  * It does not support hostnames at the "hackrf_tcp" parameter. Only IP addresses for now
+
 
 # Dependencies
 
