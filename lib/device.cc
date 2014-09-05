@@ -62,6 +62,10 @@
 #include <hackrf_source_c.h>
 #endif
 
+#ifdef ENABLE_HACKRF_TCP
+#include <hackrf_tcp_source_c.h>
+#endif
+
 #ifdef ENABLE_BLADERF
 #include <bladerf_source_c.h>
 #endif
@@ -156,6 +160,10 @@ devices_t device::find(const device_t &hint)
 #endif
 #ifdef ENABLE_HACKRF
   BOOST_FOREACH( std::string dev, hackrf_source_c::get_devices() )
+    devices.push_back( device_t(dev) );
+#endif
+#ifdef ENABLE_HACKRF_TCP
+  BOOST_FOREACH( std::string dev, hackrf_tcp_source_c::get_devices( fake ) )
     devices.push_back( device_t(dev) );
 #endif
 #ifdef ENABLE_RFSPACE

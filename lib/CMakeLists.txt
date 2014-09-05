@@ -129,6 +129,14 @@ GR_INCLUDE_SUBDIRECTORY(hackrf)
 endif(ENABLE_HACKRF)
 
 ########################################################################
+# Setup HackRF_TCP component
+########################################################################
+GR_REGISTER_COMPONENT("HackRF TCP Client" ENABLE_HACKRF_TCP LIBHACKRF_FOUND)
+if(ENABLE_HACKRF_TCP)
+GR_INCLUDE_SUBDIRECTORY(hackrf_tcp)
+endif(ENABLE_HACKRF_TCP)
+
+########################################################################
 # Setup bladeRF component
 ########################################################################
 GR_REGISTER_COMPONENT("nuand bladeRF" ENABLE_BLADERF LIBBLADERF_FOUND)

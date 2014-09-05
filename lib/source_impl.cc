@@ -64,6 +64,10 @@
 #include <hackrf_source_c.h>
 #endif
 
+#ifdef ENABLE_HACKRF_TCP
+#include <hackrf_tcp_source_c.h>
+#endif
+
 #ifdef ENABLE_BLADERF
 #include <bladerf_source_c.h>
 #endif
@@ -133,6 +137,9 @@ source_impl::source_impl( const std::string &args )
 #ifdef ENABLE_HACKRF
   dev_types.push_back("hackrf");
 #endif
+#ifdef ENABLE_HACKRF_TCP
+  dev_types.push_back("hackrf_tcp");
+#endif
 #ifdef ENABLE_BLADERF
   dev_types.push_back("bladerf");
 #endif
@@ -199,6 +206,10 @@ source_impl::source_impl( const std::string &args )
 #endif
 #ifdef ENABLE_HACKRF
   BOOST_FOREACH( std::string dev, hackrf_source_c::get_devices() )
+    dev_list.push_back( dev );
+#endif
+#ifdef ENABLE_HACKRF_TCP
+  BOOST_FOREACH( std::string dev, hackrf_tcp_source_c::get_devices() )
     dev_list.push_back( dev );
 #endif
 #ifdef ENABLE_AIRSPY
@@ -280,6 +291,13 @@ source_impl::source_impl( const std::string &args )
 #ifdef ENABLE_HACKRF
     if ( dict.count("hackrf") ) {
       hackrf_source_c_sptr src = make_hackrf_source_c( arg );
+      block = src; iface = src.get();
+    }
+#endif
+
+#ifdef ENABLE_HACKRF_TCP
+    if ( dict.count("hackrf_tcp") ) {
+      hackrf_tcp_source_c_sptr src = make_hackrf_tcp_source_c( arg );
       block = src; iface = src.get();
     }
 #endif
